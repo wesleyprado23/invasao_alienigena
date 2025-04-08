@@ -17,6 +17,9 @@ class AlienInvasion:
         # Define o título da janela
         pygame.display.set_caption("Invasão Alienígena")
 
+        # Cria um relógio para definir o fps do jogo
+        self.clock = pygame.time.Clock()
+
     def run_game(self):
         """Inicia o loop principal do jogo."""
         while True:
@@ -28,6 +31,9 @@ class AlienInvasion:
 
             # Atualiza a tela com os elementos desenhados
             pygame.display.flip()
+
+            # Define o frame hate em 60 fps
+            self.clock.tick(60)
 
 # O bloco abaixo garante que o jogo só será iniciado se este arquivo for 
 # executado diretamente
