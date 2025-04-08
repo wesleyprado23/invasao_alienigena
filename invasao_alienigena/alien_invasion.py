@@ -20,6 +20,9 @@ class AlienInvasion:
         # Cria um relógio para definir o fps do jogo
         self.clock = pygame.time.Clock()
 
+        # Define a cor do background
+        self.bg_color = (230, 230, 230)
+
     def run_game(self):
         """Inicia o loop principal do jogo."""
         while True:
@@ -28,6 +31,9 @@ class AlienInvasion:
                 if event.type == pygame.QUIT:
                     # Encerra o programa ao clicar no botão de fechar (X)
                     sys.exit()
+
+            # Redesenha a tela a cada passagem pelo loop
+            self.screen.fill(self.bg_color)
 
             # Atualiza a tela com os elementos desenhados
             pygame.display.flip()
