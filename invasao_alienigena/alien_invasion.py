@@ -1,65 +1,73 @@
-import sys  # Importa o módulo sys
-            # usado para encerrar o programa de forma segura
-import pygame  # Importa a biblioteca pygame, que permite criar jogos em Python
+import sys  # Módulo usado para encerrar o programa com sys.exit()
+import pygame  # Biblioteca de desenvolvimento de jogos 2D em Python
 
-from settings import Settings # Importa a classe de configurações do jogo
-
-from ship import Ship # Importa a classe de configuração da nave
+from settings import Settings  # Importa a classe com as configurações gerais do jogo
+from ship import Ship  # Importa a classe responsável pela nave do jogador
 
 class AlienInvasion:
     """Classe principal do jogo Invasão Alienígena.
-    Gerencia a janela do jogo, eventos e a lógica principal do loop do jogo.
+
+    Responsável por:
+    - Inicializar o Pygame
+    - Criar a janela
+    - Gerenciar os objetos principais do jogo (como a nave)
+    - Executar o loop principal do jogo
     """
 
     def __init__(self):
-        """Inicializa o jogo e define os recursos iniciais."""
-        pygame.init()  # Inicializa todos os módulos do Pygame 
-                       # (som, vídeo, fonte, etc.)
-        
-        # Cria uma instância da classe Settings com as configurações do jogo
+        """Inicializa os atributos do jogo."""
+        pygame.init()  # Inicializa todos os módulos do pygame (som, tela, fonte, etc.)
+
+        # Cria uma instância das configurações do jogo (screen size, cor, etc.)
         self.settings = Settings()
 
-        # Cria a janela do jogo com tamanho 1200x800 pixels
-        self.screen = pygame.display.set_mode((self.settings.screen_width,
-                                              self.settings.screen_height))
+        # Cria a tela do jogo com dimensões definidas nas configurações
+        self.screen = pygame.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height)
+        )
 
         # Define o título da janela
         pygame.display.set_caption("Invasão Alienígena")
 
-        # Cria uma instância da classe Ship
+        # Cria a nave do jogador, passando a instância do jogo como argumento
         self.ship = Ship(self)
 
-        # Cria um relógio para definir o fps do jogo
+        # Cria um objeto para controlar o FPS (frames por segundo)
         self.clock = pygame.time.Clock()
 
-        # Define a cor do background
+    def _check_events(self):
+        """Verifica e responde a eventos de teclado e mouse."""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                # Fecha a janela quando o jogador clica no botão de fechar (X)
+                sys.exit()
+
+    def _update_screen(self):
+        """Atualiza a tela a cada iteração do loop principal."""
+        # Preenche o fundo da tela com a cor definida nas configurações
         self.screen.fill(self.settings.bg_color)
 
+        # Desenha a nave na posição atual
+        self.ship.blitme()
+
+        # Torna a tela atual visível, atualizando tudo que foi desenhado
+        pygame.display.flip()
+
     def run_game(self):
-        """Inicia o loop principal do jogo."""
+        """Executa o loop principal do jogo.
+
+        Esse loop:
+        - Verifica eventos (como pressionamento de teclas)
+        - Atualiza os elementos da tela
+        - Controla o tempo de execução (FPS)
+        """
         while True:
-            # Verifica e trata os eventos do teclado, mouse e sistema
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    # Encerra o programa ao clicar no botão de fechar (X)
-                    sys.exit()
+            self._check_events()
+            self._update_screen()
+            self.clock.tick(60)  # Limita o jogo a 60 frames por segundo
 
-            # Redesenha a tela a cada passagem pelo loop
-            self.screen.fill(self.settings.bg_color)
-
-            # Desenha a nave
-            self.ship.blitme()
-
-            # Atualiza a tela com os elementos desenhados
-            pygame.display.flip()
-
-            # Define o frame rate em 60 fps
-            self.clock.tick(60)
-
-# O bloco abaixo garante que o jogo só será iniciado se este arquivo for 
-# executado diretamente
+# Este bloco garante que o jogo será executado apenas se o arquivo for rodado diretamente
 if __name__ == '__main__':
-    # Cria uma instância do jogo
-    ai = AlienInvasion()
-    # Inicia o loop principal do jogo
-    ai.run_game()
+    ai = AlienInvasion()  # Cria uma instância do jogo
+    ai.run_game()         # Inicia o loop principal do jogo
+
