@@ -3,7 +3,8 @@ import sys  # Importa o módulo sys
 import pygame  # Importa a biblioteca pygame, que permite criar jogos em Python
 
 from settings import Settings # Importa a classe de configurações do jogo
-                              # definida em um arquivo separado
+
+from ship import Ship # Importa a classe de configuração da nave
 
 class AlienInvasion:
     """Classe principal do jogo Invasão Alienígena.
@@ -25,6 +26,9 @@ class AlienInvasion:
         # Define o título da janela
         pygame.display.set_caption("Invasão Alienígena")
 
+        # Cria uma instância da classe Ship
+        self.ship = Ship(self)
+
         # Cria um relógio para definir o fps do jogo
         self.clock = pygame.time.Clock()
 
@@ -42,6 +46,9 @@ class AlienInvasion:
 
             # Redesenha a tela a cada passagem pelo loop
             self.screen.fill(self.settings.bg_color)
+
+            # Desenha a nave
+            self.ship.blitme()
 
             # Atualiza a tela com os elementos desenhados
             pygame.display.flip()
