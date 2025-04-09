@@ -2,6 +2,9 @@ import sys  # Importa o módulo sys
             # usado para encerrar o programa de forma segura
 import pygame  # Importa a biblioteca pygame, que permite criar jogos em Python
 
+from settings import Settings # Importa a classe de configurações do jogo
+                              # definida em um arquivo separado
+
 class AlienInvasion:
     """Classe principal do jogo Invasão Alienígena.
     Gerencia a janela do jogo, eventos e a lógica principal do loop do jogo.
@@ -11,9 +14,14 @@ class AlienInvasion:
         """Inicializa o jogo e define os recursos iniciais."""
         pygame.init()  # Inicializa todos os módulos do Pygame 
                        # (som, vídeo, fonte, etc.)
+        
+        # Cria uma instância da classe Settings com as configurações do jogo
+        self.settings = Settings()
 
         # Cria a janela do jogo com tamanho 1200x800 pixels
-        self.screen = pygame.display.set_mode((1200, 800))
+        self.screen = pygame.display.set_mode((self.settings.screen_width,
+                                              self.settings.screen_height))
+
         # Define o título da janela
         pygame.display.set_caption("Invasão Alienígena")
 
@@ -21,7 +29,7 @@ class AlienInvasion:
         self.clock = pygame.time.Clock()
 
         # Define a cor do background
-        self.bg_color = (230, 230, 230)
+        self.screen.fill(self.settings.bg_color)
 
     def run_game(self):
         """Inicia o loop principal do jogo."""
@@ -33,12 +41,12 @@ class AlienInvasion:
                     sys.exit()
 
             # Redesenha a tela a cada passagem pelo loop
-            self.screen.fill(self.bg_color)
+            self.screen.fill(self.settings.bg_color)
 
             # Atualiza a tela com os elementos desenhados
             pygame.display.flip()
 
-            # Define o frame hate em 60 fps
+            # Define o frame rate em 60 fps
             self.clock.tick(60)
 
 # O bloco abaixo garante que o jogo só será iniciado se este arquivo for 
