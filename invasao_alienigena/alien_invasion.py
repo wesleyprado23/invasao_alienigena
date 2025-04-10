@@ -48,6 +48,10 @@ class AlienInvasion:
                     self.ship.moving_right = True
                 elif event.key == pygame.K_a:
                     self.ship.moving_left = True
+                elif event.key == pygame.K_w:
+                    self.ship.moving_up = True
+                elif event.key == pygame.K_s:
+                    self.ship.movinf_down = True
 
             elif event.type == pygame.KEYUP:
                 # Soltou tecla
@@ -55,6 +59,10 @@ class AlienInvasion:
                     self.ship.moving_right = False
                 elif event.key == pygame.K_a:
                     self.ship.moving_left = False
+                elif event.key == pygame.K_w:
+                    self.ship.moving_up = False
+                elif event.key == pygame.K_s:
+                    self.ship.movinf_down = False
 
     def _update_screen(self):
         """Atualiza a imagem da tela com cada passagem do loop."""

@@ -40,6 +40,8 @@ class Ship:
         # Flags de controle de movimento: começam como False (nave parada)
         self.moving_right = False
         self.moving_left = False
+        self.moving_up = False
+        self.movinf_down = False
 
     def update(self):
         """Atualiza a posição da espaçonave com base nas flags de movimento."""
@@ -47,6 +49,10 @@ class Ship:
             self.x += self.settings.ship_speed
         if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.ship_speed
+        if self.moving_up and self.rect.top > 0:
+            self.rect.y -= self.settings.ship_speed
+        if self.movinf_down and self.rect.bottom < self.screen_rect.bottom:
+            self.rect.y += self.settings.ship_speed
 
         self.rect.x = self.x
 
