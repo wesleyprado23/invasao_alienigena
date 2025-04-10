@@ -29,6 +29,12 @@ class AlienInvasion:
         # Define o título da janela
         pygame.display.set_caption("Invasão Alienígena")
 
+        # Carrega e redimensiona a imagem de fundo para caber na tela
+        self.bg_image = pygame.image.load('images/backgrounds/space_bg.png')
+        self.bg_image = pygame.transform.scale(self.bg_image, 
+                                               (self.settings.screen_width, 
+                                                self.settings.screen_height))
+
         # Cria a nave do jogador (objeto Ship)
         self.ship = Ship(self)
 
@@ -67,7 +73,8 @@ class AlienInvasion:
     def _update_screen(self):
         """Atualiza a imagem da tela com cada passagem do loop."""
         # Preenche o fundo da tela
-        self.screen.fill(self.settings.bg_color)
+        # self.screen.fill(self.settings.bg_color)
+        self.screen.blit(self.bg_image, (0, 0))  # Desenha o fundo na posição (0, 0)
 
         # Desenha a nave na posição atual
         self.ship.blitme()
