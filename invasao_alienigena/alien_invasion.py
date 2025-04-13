@@ -49,26 +49,34 @@ class AlienInvasion:
                 sys.exit()
 
             elif event.type == pygame.KEYDOWN:
-                # Pressionou tecla
-                if event.key == pygame.K_d:
-                    self.ship.moving_right = True
-                elif event.key == pygame.K_a:
-                    self.ship.moving_left = True
-                elif event.key == pygame.K_w:
-                    self.ship.moving_up = True
-                elif event.key == pygame.K_s:
-                    self.ship.movinf_down = True
+                self._check_keydown_events(event)
 
             elif event.type == pygame.KEYUP:
-                # Soltou tecla
-                if event.key == pygame.K_d:
-                    self.ship.moving_right = False
-                elif event.key == pygame.K_a:
-                    self.ship.moving_left = False
-                elif event.key == pygame.K_w:
-                    self.ship.moving_up = False
-                elif event.key == pygame.K_s:
-                    self.ship.movinf_down = False
+                self._check_keyup_events(event)
+
+    def _check_keydown_events(self, event):
+        """Responde as teclas pressionadas"""
+        if event.key == pygame.K_d:
+            self.ship.moving_right = True
+        elif event.key == pygame.K_a:
+            self.ship.moving_left = True
+        elif event.key == pygame.K_w:
+            self.ship.moving_up = True
+        elif event.key == pygame.K_s:
+            self.ship.moving_down = True
+        elif event.key == pygame.K_q:
+            sys.exit()
+
+    def _check_keyup_events(self, event):
+        """Responde as teclas soltas"""
+        if event.key == pygame.K_d:
+            self.ship.moving_right = False
+        elif event.key == pygame.K_a:
+            self.ship.moving_left = False
+        elif event.key == pygame.K_w:
+            self.ship.moving_up = False
+        elif event.key == pygame.K_s:
+            self.ship.moving_down = False
 
     def _update_screen(self):
         """Atualiza a imagem da tela com cada passagem do loop."""
