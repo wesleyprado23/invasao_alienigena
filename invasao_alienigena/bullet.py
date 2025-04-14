@@ -2,43 +2,43 @@ import pygame
 from pygame.sprite import Sprite
 
 class Bullet(Sprite):
-    """Classe que gerencia os projéteis disparados pela espaçonave.
+    """Classe que representa os projéteis disparados pela espaçonave.
 
-    Cada projétil é uma instância de Sprite, permitindo o uso de grupos
-    e atualizações automáticas com o método .update().
+    Herda de pygame.sprite.Sprite para permitir o uso eficiente com grupos de sprites,
+    facilitando atualização, colisões e remoção de vários projéteis de uma só vez.
     """
 
     def __init__(self, ai_game):
-        """Cria um novo projétil na posição atual da espaçonave.
+        """Cria um projétil na posição atual da nave do jogador.
 
         Parâmetros:
-        ai_game – instância de AlienInvasion, usada para acessar tela, configurações e a nave.
+        ai_game – instância de AlienInvasion que fornece acesso à tela,
+                  configurações do jogo e à própria nave.
         """
-        super().__init__()  # Inicializa como um Sprite
+        super().__init__()
 
         self.screen = ai_game.screen
         self.settings = ai_game.settings
         self.color = self.settings.bullet_color
 
-        # Cria o retângulo que representa o projétil
-        # Começa em (0, 0), e depois é posicionado corretamente
+        # Cria um retângulo do projétil com largura e altura definidos nas configurações
         self.rect = pygame.Rect(0, 0, self.settings.bullet_width, 
                                 self.settings.bullet_height)
 
-        # Define o topo central do projétil para coincidir com o topo da nave
+        # Posiciona o projétil no topo central da nave
         self.rect.midtop = ai_game.ship.rect.midtop
 
-        # Armazena a posição Y como float para permitir movimentação suave
+        # Armazena a posição vertical como float para permitir movimento suave
         self.y = float(self.rect.y)
 
     def update(self):
-        """Atualiza a posição do projétil, movendo-o para cima na tela."""
-        # Reduz o valor de y para subir (em Pygame, o eixo Y cresce para baixo)
+        """Move o projétil para cima na tela (em direção ao topo)."""
+        # Em Pygame, a coordenada Y diminui conforme sobe na tela
         self.y -= self.settings.bullet_speed
 
-        # Atualiza a posição do retângulo com o novo valor
+        # Atualiza a posição do retângulo com base no novo valor de y
         self.rect.y = self.y
 
     def draw_bullet(self):
-        """Desenha o projétil na tela."""
+        """Desenha o projétil como um retângulo na tela."""
         pygame.draw.rect(self.screen, self.color, self.rect)
