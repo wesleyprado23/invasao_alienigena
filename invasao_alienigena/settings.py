@@ -39,7 +39,7 @@ class Settings:
         self.bullet_width = 3      # Largura do projétil
         self.bullet_height = 15    # Altura do projétil
         self.bullet_color = (0, 200, 255)  # Cor do projétil (ciano)
-        self.bullets_allowed = 3   # Limite de projéteis ativos simultaneamente
+        self.bullets_allowed = 10   # Limite de projéteis ativos simultaneamente
 
         # ==============================
         # Configurações dos alienígenas
